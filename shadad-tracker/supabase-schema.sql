@@ -44,8 +44,8 @@ begin
   if p_payload is null or jsonb_typeof(p_payload) <> 'object' then
     raise exception 'Invalid snapshot';
   end if;
-  if octet_length(p_payload::text) > 1048576 then
-    raise exception 'Snapshot larger than 1 MiB';
+  if octet_length(p_payload::text) > 8388608 then
+    raise exception 'Snapshot larger than 8 MiB';
   end if;
   if p_expected_revision is null then
     insert into public.shadad_workout_snapshots (user_id, payload, revision)
