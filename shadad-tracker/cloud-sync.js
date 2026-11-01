@@ -123,7 +123,7 @@ async function login(mode,email,password){
    message='';
   }else tell(lang('Account created. Confirm your email and sign in.','تم إنشاء الحساب. أكد البريد الإلكتروني ثم سجل دخولك.'));
  }catch(err){tell(err&&err.message||String(err))}
- finally{busy=false;draw()}
+ finally{busy=false;if(account&&pending)schedule(100);draw()}
 }
 function setConfig(){
  const c=configOk({url:document.getElementById('cloudUrl')?.value,publishableKey:document.getElementById('cloudKey')?.value});
