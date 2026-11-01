@@ -1,0 +1,505 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#111216">
+<meta name="description" content="Shadad Split 2.0 workout tracker: log your gym sessions, weights, reps, RIR and progress online or offline.">
+<title>Shadad Split — Training Tracker</title>
+<style>
+:root{--bg:#0d0f13;--panel:#17191f;--panel2:#202229;--border:#31343e;--text:#f6f5f3;--muted:#a2a5ad;--orange:#ff783b;--orange2:#ffa36a;--green:#70d8a0;--red:#ff8585;--radius:17px;--max:940px;color-scheme:dark}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(ellipse at 85% -15%,rgba(255,115,47,.14),transparent 38%),var(--bg);color:var(--text);font:15px/1.45 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;-webkit-tap-highlight-color:transparent}
+a{color:var(--orange2)}button,input,select,textarea{font:inherit}button{cursor:pointer}button:disabled{cursor:not-allowed;opacity:.45}input,select,textarea{border:1px solid #434651;background:#101218;color:var(--text);border-radius:11px;min-height:43px;padding:9px 11px;min-width:0}input:focus,textarea:focus,select:focus,button:focus-visible{outline:2px solid var(--orange);outline-offset:2px}input[type=number]{appearance:textfield;-moz-appearance:textfield}input::-webkit-inner-spin-button,input::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}textarea{width:100%;resize:vertical;min-height:74px}.shell{max-width:var(--max);margin:auto;min-height:100vh;padding:0 18px 106px}
+.top{display:flex;justify-content:space-between;align-items:center;padding:22px 0 18px;gap:12px}.brand{display:flex;align-items:center;gap:12px;cursor:pointer}.mark{background:linear-gradient(135deg,#ff9d51,#ff5b29);color:#21110b;font-size:21px;font-weight:950;width:46px;height:46px;border-radius:14px;display:grid;place-items:center;box-shadow:0 5px 32px #ff6a3424}.brand-title{font-size:16px;letter-spacing:.5px;font-weight:900}.brand-sub{color:var(--muted);font-size:12px}.lang-btn{background:#25262d;border:1px solid var(--border);color:var(--text);border-radius:10px;padding:9px 11px}.hero{background:linear-gradient(115deg,#252027,#17191f 58%);border:1px solid #413336;border-radius:23px;padding:22px;position:relative;overflow:hidden}.hero:before{content:"";position:absolute;right:-95px;top:-100px;width:290px;height:290px;border:45px solid #ff75211b;border-radius:50%;pointer-events:none}.eyebrow{font-size:12px;color:var(--orange2);font-weight:900;text-transform:uppercase;letter-spacing:1.4px}.hero h1{font-size:clamp(27px,5vw,38px);line-height:1.16;margin:7px 0 10px;max-width:620px;letter-spacing:-.5px}.hero p{color:#c8c6cb;margin:0 0 20px;max-width:590px}.btn{border:0;border-radius:12px;display:inline-flex;align-items:center;justify-content:center;gap:7px;min-height:44px;padding:10px 16px;font-weight:750;color:var(--text);background:#30333d}.btn.primary{background:var(--orange);color:#1a100b}.btn.ghost{background:transparent;border:1px solid #454650}.btn.small{min-height:35px;font-size:12px;padding:6px 11px;border-radius:9px}.btn.danger{background:#482729;color:#ffd4d2}.btn.success{background:#163928;color:#b0f2c9}.btn.block{width:100%}.btn:active,.day-card:active{transform:scale(.99)}.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.spread{justify-content:space-between}.section{margin-top:28px}.sect-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin:0 0 13px}.sect-head h2{font-size:21px;line-height:1.25;margin:0;font-weight:850}.muted{color:var(--muted)}.smalltext{font-size:12px}.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-top:17px}.stat{background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:15px}.stat b{display:block;font-size:24px;line-height:1.15;font-weight:880;white-space:nowrap}.stat span{display:block;color:var(--muted);font-size:12px;margin-top:6px}.days{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:8px}.day-card{background:var(--panel);border:1px solid var(--border);border-radius:15px;padding:13px 8px;min-height:106px;text-align:center;color:var(--text);position:relative}.day-card.active{border-color:var(--orange);box-shadow:inset 0 0 0 1px #ff793c33;background:#271f20}.day-card.rest{color:#aaa9ad}.day-num{font-size:12px;color:var(--muted)}.day-main{font-weight:900;font-size:21px;margin:5px 0}.day-label{font-size:11px;color:var(--muted)}.card{background:var(--panel);border:1px solid var(--border);border-radius:var(--radius);padding:17px}.card+.card{margin-top:12px}.workout-head{display:flex;justify-content:space-between;align-items:flex-start;gap:15px}.workout-title{font-size:28px;margin:3px 0 4px;line-height:1.2}.pill{border:1px solid #504138;color:#ffc395;border-radius:999px;padding:5px 10px;font-size:12px;font-weight:650;display:inline-block}.pill.green{border-color:#28513d;color:var(--green)}.progress-track{width:100%;height:9px;background:#30323a;border-radius:30px;overflow:hidden;margin-top:14px}.progress-fill{height:100%;background:linear-gradient(90deg,#ff6935,#ffac67);border-radius:30px;transition:width .25s}.exercise{margin-top:14px;background:var(--panel);border:1px solid #33363e;border-radius:17px;overflow:hidden}.ex-top{padding:16px 17px 13px;display:flex;align-items:flex-start;justify-content:space-between;gap:12px}.ex-index{color:var(--orange2);font-weight:900;font-size:12px;margin-bottom:5px}.ex-name{font-weight:850;font-size:18px;line-height:1.25;margin-bottom:7px}.targets{font-size:12px;color:#bfc0c5;display:flex;gap:7px;flex-wrap:wrap}.target{background:#282a32;padding:4px 7px;border-radius:7px}.ex-actions{display:flex;gap:6px;flex-shrink:0}.ico-btn{border:1px solid #42454d;background:#282a32;color:var(--text);width:37px;height:37px;border-radius:10px;display:grid;place-items:center;font-size:16px;text-decoration:none}.ico-btn:hover{border-color:var(--orange)}.set-table{width:100%;border-collapse:separate;border-spacing:0 5px;padding:0 12px}.set-table th{text-align:center;color:#a7a9b1;font-size:11px;font-weight:650;padding:1px 3px 4px}.set-table td{padding:2px 3px;text-align:center}.set-table input{width:100%;height:42px;min-height:42px;text-align:center;padding:8px 3px;border-radius:8px}.set-table .set-kind{width:52px;text-align:left;padding-left:5px;font-size:12px;color:#c3c5ca}.set-table .set-kind small{display:block;font-size:10px;color:var(--muted)}.set-table .markdone{width:43px;min-width:43px;height:42px;border:1px solid #41434c;background:#2b2c34;color:#eee;border-radius:9px;font-weight:800}.set-table tr.is-done .markdone{background:#256343;color:white;border-color:#3c9064}.set-table tr.is-done input{border-color:#326449}.ex-bottom{display:flex;justify-content:space-between;align-items:center;gap:9px;flex-wrap:wrap;padding:10px 16px 15px}.prev{font-size:12px;color:#bfc0c8;padding:0 16px 10px}.ex-notes{padding:0 16px 15px}.ex-notes textarea{min-height:55px}.session-footer{position:sticky;bottom:74px;z-index:4;margin-top:16px;border:1px solid #6b4331;background:#252124eb;backdrop-filter:blur(15px);padding:11px 13px;border-radius:16px;box-shadow:0 8px 35px #0009}.timer{display:flex;gap:9px;align-items:center}.timer-clock{font-variant-numeric:tabular-nums;font-size:20px;font-weight:900;min-width:62px}.timer-clock.ready{color:var(--green)}.tabs{position:fixed;bottom:0;left:0;right:0;background:#15171bf2;backdrop-filter:blur(16px);border-top:1px solid #32343d;z-index:10;padding:8px max(12px,calc((100vw - var(--max))/2));padding-bottom:calc(8px + env(safe-area-inset-bottom));display:flex;justify-content:space-around;gap:3px}.tab{background:transparent;border:none;color:#a4a5ad;border-radius:9px;min-width:0;flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 3px;font-weight:650;font-size:11px}.tab.active{color:var(--orange2)}.tab-icon{font-size:19px}.tiny{font-size:11px}.latest{display:flex;align-items:center;justify-content:space-between;gap:10px;border-bottom:1px solid #31343d;padding:12px 0}.latest:last-child{border-bottom:0}.latest-title{font-weight:760}.subtle{font-size:12px;color:#a8abb2;margin-top:3px}.chartbox{background:var(--panel);border:1px solid var(--border);border-radius:16px;padding:15px}.chartbox svg{width:100%;height:auto;display:block}.chartlabel{fill:#a5a8af;font-size:12px}.chartline{stroke:#ff8646;stroke-width:3;fill:none;stroke-linecap:round;stroke-linejoin:round}.chartpoint{fill:#ff944d;stroke:#151619;stroke-width:3}.divider{border:0;border-top:1px solid var(--border);margin:18px 0}.field{display:flex;flex-direction:column;gap:7px;min-width:0}.field label{font-size:12px;font-weight:700;color:#b9bbc2}.field input,.field select{width:100%}.fields{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}.history-details{border-top:1px solid #33363f;margin-top:14px;padding-top:12px}.history-details table{width:100%;border-collapse:collapse}.history-details th,.history-details td{padding:7px 5px;text-align:left;border-bottom:1px solid #33353c;font-size:12px}.history-details th{color:var(--muted)}.history-details td:first-child{max-width:210px;overflow-wrap:anywhere}.empty{text-align:center;padding:40px 18px;background:#17191f;border:1px dashed #49434b;border-radius:16px;color:#a9abb1}.empty .symbol{font-size:34px;margin-bottom:8px}.note{padding:11px 13px;background:#242126;border:1px solid #493b3a;border-radius:11px;color:#cfc5c1;font-size:12px}.notification{position:fixed;bottom:92px;left:50%;transform:translateX(-50%);background:#303a34;border:1px solid #579171;color:#fff;padding:10px 17px;border-radius:12px;z-index:30;box-shadow:0 10px 35px #000a;max-width:90vw;text-align:center}.right{text-align:right}.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}.hspace{margin-top:13px}.hide{display:none!important}details summary{cursor:pointer;color:#ffc094;font-size:13px;font-weight:700;padding:8px 0}details summary::marker{color:#ff8046}.ch-select{width:100%}.trend-value{font-size:30px;font-weight:850;margin:8px 0 1px}.outlinebox{border:1px solid var(--border);background:#1c1e24;border-radius:12px;padding:12px}.hint{font-size:12px;color:var(--muted)}
+[dir=rtl] .set-table .set-kind{text-align:right;padding-right:5px;padding-left:0}[dir=rtl] .history-details th,[dir=rtl] .history-details td{text-align:right}[dir=rtl] .right{text-align:left}
+@media (max-width:600px){.shell{padding:0 12px 106px}.top{padding:13px 1px}.brand-title{font-size:14px}.hero{padding:19px 17px}.stats{grid-template-columns:repeat(2,minmax(0,1fr))}.days{grid-template-columns:repeat(4,minmax(0,1fr))}.day-card{min-height:98px}.day-main{font-size:20px}.fields{grid-template-columns:repeat(3,minmax(0,1fr))}.card{padding:14px}.ex-top{padding:14px 13px 11px}.ex-name{font-size:16px}.set-table{padding:0 6px}.set-table td{padding:2px}.set-table .set-kind{width:43px;font-size:11px}.set-table .markdone{width:35px;min-width:35px}.set-table input{padding:7px 2px}.ex-bottom{padding:10px 12px 13px}.prev{padding:0 12px 10px}.ex-notes{padding:0 12px 12px}.grid2{grid-template-columns:1fr}.session-footer{bottom:73px}.tab{font-size:10px}.tab-icon{font-size:18px}}
+@media (max-width:345px){.set-table input{font-size:13px}.targets{gap:3px}.target{font-size:11px;padding:4px}.ex-actions{flex-direction:column}.hero h1{font-size:27px}}
+</style>
+<link rel="manifest" href="./manifest.webmanifest">
+<link rel="icon" type="image/svg+xml" href="./icon.svg">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+</head>
+<body>
+<div class="shell"><header class="top"><div class="brand" id="brandHome"><div class="mark">S</div><div><div class="brand-title">SHADAD SPLIT <span style="color:var(--orange)">2.0</span></div><div class="brand-sub" id="brandSub">OFFLINE TRAINING TRACKER</div></div></div><button class="lang-btn" id="langBtn" aria-label="Change language">العربية</button></header><main id="app"></main></div>
+<nav class="tabs" id="tabs" aria-label="Navigation"></nav><div id="toast" role="status" aria-live="polite"></div><input type="file" id="importFile" accept="application/json,.json" hidden>
+<script>
+'use strict';
+const PLAN={
+  "1": [
+    {
+      "id": "d1e1",
+      "name": "Cable y raises",
+      "warmups": 1,
+      "sets": 2,
+      "reps": "8-12",
+      "rir": "1-0",
+      "rest": "1-2 min",
+      "restSeconds": 90,
+      "video": "https://www.youtube.com/watch?v=9zhh-aGUrcs&list=PLlvCYMcR6vcVpeIUZgkFaQWZKGF49w5Bz&index=20&pp=iAQB"
+    },
+    {
+      "id": "d1e2",
+      "name": "Wide grip latpulldown",
+      "warmups": 1,
+      "sets": 3,
+      "reps": "6-10",
+      "rir": "1-0",
+      "rest": "2-3 min",
+      "restSeconds": 150,
+      "video": "https://www.youtube.com/watch?v=eTy8dMwWptc&list=PLlvCYMcR6vcVpeIUZgkFaQWZKGF49w5Bz&index=55&pp=iAQB"
+    },
+    {
+      "id": "d1e3",
+      "name": "Kelso shrugs",
+      "warmups": 1,
+      "sets": 2,
+      "reps": "8-12",
+      "rir": "1-0",
+      "rest": "2-3 min",
+      "restSeconds": 150,
+      "video": "https://youtu.be/iqXvQKmU-Uk"
+    },
+    {
+      "id": "d1e4",
+      "name": "T bar machine",
+      "warmups": 0,
+      "sets": 1,
+      "reps": "6-10",
+      "rir": "1-0",
+      "rest": "2-3 min",
+      "restSeconds": 150,
+      "video": "https://www.youtube.com/watch?v=JohmkrpUJK4&list=PLlvCYMcR6vcVpeIUZgkFaQWZKGF49w5Bz&index=53&pp=iAQB"
+    },
+    {
+      "id": "d1e5",
+      "name": "Cable lat pullover",
+      "warmups": 1,
+      "sets": 3,
+      "reps": "6-10",
+      "rir": "1-0",
+      "rest": "2-3 min",
+      "restSeconds": 150,
+      "video": "https://www.youtube.com/watch?v=ErXQXPzijLk&list=PLlvCYMcR6vcVpeIUZgkFaQWZKGF49w5Bz&index=58&pp=iAQB0gcJCa4KAYcqIYzv"
+    },
+    {
+      "id": "d1e6",
+      "name": "DB lateral raises",
+      "warmups": 1,
+      "sets": 2,
+      "reps": "8-10",
+      "rir": "1-0",
+      "rest": "2-3 min",
+      "restSeconds": 150,
+      "video": "https://www.youtube.com/watch?v=U6-py46Cdnc&list=PLlvCYMcR6vcVpeIUZgkFaQWZKGF49w5Bz&index=50&pp=iAQB0gcJCa4KAYcqIYzv"
+    },
+    {
+      "id": "d1e7",
+      "name": "Cable reverse curl",
+      "warmups": 1,
+      "sets": 1,
+      "reps": "8-12",
+      "rir": "1-2",
+      "rest": "1.5-2 min",
+      "restSeconds": 90,
+      "video": "https://www.youtube.com/watch?v=_cfnX1qsEWw&list=PLlvCYMcR6vcVpeIUZgkFaQWZKGF49w5Bz&index=56&pp=iAQB"
+    },
+    {
+      "id": "d1e8",
+      "name": "Abdominal crunches",
+      "warmups": 1,
+      "sets": 2,
+      "reps": "8-12",
+      "rir": "1-0",
+      "rest": "1.5-2 min",
+      "restSeconds": 90,
+      "video": "https://youtu.be/a9czVmDjB0E"
+    }
+  ],
+  "2": [
+    {
+      "id": "d2e1",
+      "name": "DB low incline chest press",
+      "warmups": 2,
+      "sets": 3,
+      "reps": "6-10",
+      "rir": "1-0",
+      "rest": "2-3 min",
+      "restSeconds": 150,
+      "video": "https://www.youtube.com/watch?v=ZT78Lf66NXw&list=PLlvCYMcR6vcVpeIUZgkFaQWZKGF49w5Bz&index=4&pp=iAQB"
+    },
+    {
+      "id": "d2e2",
+      "name": "Chest fly machine",
+      "warmups": 0,
+      "sets": 2,
+      "reps": "8-12",
+      "rir": "1-0",
+      "rest": "2-3 min",
+      "restSeconds": 150,
+      "video": "https://www.youtube.com/watch?v=GWq3xgNzRpk&list=PLlvCYMcR6vcVpeIUZgkFaQWZKGF49w5Bz&index=16&pp=iAQB"
+    },
+    {
+      "id": "d2e3",
+      "name": "DB no cheat curl",
+      "warmups": 1,
+      "sets": 2,
+      "reps": "8-12",
+      "rir": "1-0",
+      "rest": "2-3 min",
+      "restSeconds": 150,
+      "video": ""
+    },
+    {
+      "id": "d2e4",
+      "name": "Rope triceps pushdown",
+      "warmups": 1,
+      "sets": 3,
+      "reps": "8-12",
+      "rir": "1-0",
+      "rest": "2-3 min",
+      "restSeconds": 150,
+      "video": "https://www.youtube.com/watch?v=jIKXu_m_WxM&list=PLlvCYMcR6vcVpeIUZgkFaQWZKGF49w5Bz&index=13&pp=iAQB0gcJCa4KAYcqIYzv"
+    },
+    {
+      "id": "d2e5",
+      "name": "Biceps bayesian curl",
+      "warmups": 1,
+      "sets": 2,
+      "reps": "8-12",
+      "rir": "1-0",
+      "rest": "2-3 min",
+      "restSeconds": 150,
+      "video": "https://www.youtube.com/watch?v=KbSCjlMnuwQ&list=PLlvCYMcR6vcVpeIUZgkFaQWZKGF49w5Bz&index=22&pp=iAQB"
+    },
+    {
+      "id": "d2e6",
+      "name": "Rope overhead extension",
+      "warmups": 1,
+      "sets": 2,
+      "reps": "8-10",
+      "rir": "1-0",
+      "rest": "1.5-2 min",
+      "restSeconds": 90,
+      "video": "https://www.youtube.com/watch?v=OKoLcDpJGrM&list=PLlvCYMcR6vcVpeIUZgkFaQWZKGF49w5Bz&index=11&pp=iAQB"
+    },
+    {
+      "id": "d2e7",
+      "name": "Cable hammer curl",
+      "warmups": 0,
+      "sets": 1,
+      "reps": "8-10",
+      "rir": "1-0",
+      "rest": "1.5-2 min",
+      "restSeconds": 90,
+      "video": "https://www.youtube.com/watch?v=1leUFof4BSM&list=PLlvCYMcR6vcVpeIUZgkFaQWZKGF49w5Bz&index=21&pp=iAQB"
+    }
+  ],
+  "3": [
+    {
+      "id": "d3e1",
+      "name": "Seated leg curl",
+      "warmups": 2,
+      "sets": 2,
+      "reps": "10-12",
+      "rir": "1-0",
+      "rest": "2-3 min",
+      "restSeconds": 150,
+      "video": "https://www.youtube.com/watch?v=sEPovssMLqM&list=PLlvCYMcR6vcVpeIUZgkFaQWZKGF49w5Bz&index=43&pp=iAQB"
+    },
+    {
+      "id": "d3e2",
+      "name": "Leg press machine",
+      "warmups": 2,
+      "sets": 2,
+      "reps": "8-12",
+      "rir": "1-0",
+      "rest": "2-3 min",
+      "restSeconds": 150,
+      "video": "https://www.youtube.com/watch?v=1QlJC8ezMvE&list=PLlvCYMcR6vcVpeIUZgkFaQWZKGF49w5Bz&index=42&pp=iAQB"
+    },
+    {
+      "id": "d3e3",
+      "name": "Smith hip thrust",
+      "warmups": 1,
+      "sets": 1,
+      "reps": "8-12",
+      "rir": "1-0",
+      "rest": "2-3 min",
+      "restSeconds": 150,
+      "video": "https://www.youtube.com/watch?v=-C3rQT56iSs&list=PLlvCYMcR6vcVpeIUZgkFaQWZKGF49w5Bz&index=34&pp=iAQB"
+    },
+    {
+      "id": "d3e4",
+      "name": "Adductors machine",
+      "warmups": 1,
+      "sets": 2,
+      "reps": "8-12",
+      "rir": "1-0",
+      "rest": "2-3 min",
+      "restSeconds": 150,
+      "video": "https://www.youtube.com/watch?v=EZzpfk62hDA&list=PLlvCYMcR6vcVpeIUZgkFaQWZKGF49w5Bz&index=62&pp=iAQB0gcJCa4KAYcqIYzv"
+    },
+    {
+      "id": "d3e5",
+      "name": "Smith standing calf raises",
+      "warmups": 1,
+      "sets": 3,
+      "reps": "8-12",
+      "rir": "1-0",
+      "rest": "2-3 min",
+      "restSeconds": 150,
+      "video": "https://www.youtube.com/watch?v=p_T9O2gHwPA&list=PLlvCYMcR6vcVpeIUZgkFaQWZKGF49w5Bz&index=36&pp=iAQB"
+    },
+    {
+      "id": "d3e6",
+      "name": "Cable lateral raises W.H",
+      "warmups": 1,
+      "sets": 2,
+      "reps": "6-10",
+      "rir": "1-0",
+      "rest": "1.5-2 min",
+      "restSeconds": 90,
+      "video": "https://www.youtube.com/watch?v=YPiH3mkk14E&list=PLlvCYMcR6vcVpeIUZgkFaQWZKGF49w5Bz&index=18&pp=iAQB"
+    },
+    {
+      "id": "d3e7",
+      "name": "Cable torso rotation",
+      "warmups": 1,
+      "sets": 2,
+      "reps": "8-12",
+      "rir": "1-0",
+      "rest": "1.5-2 min",
+      "restSeconds": 90,
+      "video": "https://www.youtube.com/watch?v=-FWq-UK9FQ8&list=PLlvCYMcR6vcVpeIUZgkFaQWZKGF49w5Bz&index=77&pp=iAQB"
+    },
+    {
+      "id": "d3e8",
+      "name": "Abdominal crunches",
+      "warmups": 0,
+      "sets": 3,
+      "reps": "8-12",
+      "rir": "1-0",
+      "rest": "1.5-2 min",
+      "restSeconds": 90,
+      "video": "https://youtu.be/a9czVmDjB0E"
+    }
+  ],
+  "4": [
+    {
+      "id": "d4e1",
+      "name": "T bar machine",
+      "warmups": 1,
+      "sets": 2,
+      "reps": "6-10",
+      "rir": "1-0",
+      "rest": "2-3 min",
+      "restSeconds": 150,
+      "video": "https://www.youtube.com/watch?v=JohmkrpUJK4&list=PLlvCYMcR6vcVpeIUZgkFaQWZKGF49w5Bz&index=53&pp=iAQB"
+    },
+    {
+      "id": "d4e2",
+      "name": "DB flat press",
+      "warmups": 1,
+      "sets": 2,
+      "reps": "6-10",
+      "rir": "1-0",
+      "rest": "2-3 min",
+      "restSeconds": 150,
+      "video": "https://www.youtube.com/watch?v=XSl_-gRMfbU&list=PLlvCYMcR6vcVpeIUZgkFaQWZKGF49w5Bz&index=3&pp=iAQB"
+    },
+    {
+      "id": "d4e3",
+      "name": "Wide grip latpulldown",
+      "warmups": 1,
+      "sets": 1,
+      "reps": "8-12",
+      "rir": "1-0",
+      "rest": "2-3 min",
+      "restSeconds": 150,
+      "video": "https://www.youtube.com/watch?v=eTy8dMwWptc&list=PLlvCYMcR6vcVpeIUZgkFaQWZKGF49w5Bz&index=55&pp=iAQB"
+    },
+    {
+      "id": "d4e4",
+      "name": "Smith incline shoulder press",
+      "warmups": 0,
+      "sets": 1,
+      "reps": "6-10",
+      "rir": "1-0",
+      "rest": "2-3 min",
+      "restSeconds": 150,
+      "video": "https://youtu.be/bhkhKJezbWM"
+    },
+    {
+      "id": "d4e5",
+      "name": "Close grip seated row",
+      "warmups": 0,
+      "sets": 2,
+      "reps": "8-12",
+      "rir": "1-0",
+      "rest": "2-3 min",
+      "restSeconds": 150,
+      "video": ""
+    },
+    {
+      "id": "d4e6",
+      "name": "Lateral raises machine",
+      "warmups": 1,
+      "sets": 3,
+      "reps": "10-12",
+      "rir": "1-0",
+      "rest": "1.5-2 min",
+      "restSeconds": 90,
+      "video": "https://www.youtube.com/watch?v=2TmJNXAKv6M&list=PLlvCYMcR6vcVpeIUZgkFaQWZKGF49w5Bz&index=76&pp=iAQB"
+    },
+    {
+      "id": "d4e7",
+      "name": "DB preacher curl",
+      "warmups": 1,
+      "sets": 2,
+      "reps": "8-12",
+      "rir": "1-0",
+      "rest": "1.5-2 min",
+      "restSeconds": 90,
+      "video": "https://www.youtube.com/watch?v=VbW41i0wZek&list=PLlvCYMcR6vcVpeIUZgkFaQWZKGF49w5Bz&index=27&pp=iAQB"
+    },
+    {
+      "id": "d4e8",
+      "name": "Rope triceps pushdown",
+      "warmups": 1,
+      "sets": 2,
+      "reps": "8-12",
+      "rir": "1-0",
+      "rest": "1.5-2 min",
+      "restSeconds": 90,
+      "video": "https://www.youtube.com/watch?v=G2RWJv6NXzk&list=PLlvCYMcR6vcVpeIUZgkFaQWZKGF49w5Bz&index=28&pp=iAQB"
+    }
+  ],
+  "5": [
+    {
+      "id": "d5e1",
+      "name": "RDLS",
+      "warmups": 2,
+      "sets": 3,
+      "reps": "8-12",
+      "rir": "1-0",
+      "rest": "2-3 min",
+      "restSeconds": 150,
+      "video": "https://www.youtube.com/watch?v=zoYMNYMk1rM&list=PLlvCYMcR6vcVpeIUZgkFaQWZKGF49w5Bz&index=52&pp=iAQB"
+    },
+    {
+      "id": "d5e2",
+      "name": "Hack squat machine",
+      "warmups": 1,
+      "sets": 2,
+      "reps": "6-10",
+      "rir": "1-0",
+      "rest": "2-3 min",
+      "restSeconds": 150,
+      "video": "https://www.youtube.com/watch?v=Rv9546lEiW8&list=PLlvCYMcR6vcVpeIUZgkFaQWZKGF49w5Bz&index=44&pp=iAQB"
+    },
+    {
+      "id": "d5e3",
+      "name": "Leg extension machine",
+      "warmups": 0,
+      "sets": 3,
+      "reps": "8-12",
+      "rir": "1-0",
+      "rest": "2-3 min",
+      "restSeconds": 150,
+      "video": "https://www.youtube.com/watch?v=Es1dBdx448g&list=PLlvCYMcR6vcVpeIUZgkFaQWZKGF49w5Bz&index=61&pp=iAQB0gcJCa4KAYcqIYzv"
+    },
+    {
+      "id": "d5e4",
+      "name": "Lying leg curl",
+      "warmups": 0,
+      "sets": 2,
+      "reps": "6-10",
+      "rir": "1-0",
+      "rest": "2-3 min",
+      "restSeconds": 150,
+      "video": "https://www.youtube.com/watch?v=T275UXpIXug&list=PLlvCYMcR6vcVpeIUZgkFaQWZKGF49w5Bz&index=41&pp=iAQB0gcJCa4KAYcqIYzv"
+    },
+    {
+      "id": "d5e5",
+      "name": "Adductors machine",
+      "warmups": 1,
+      "sets": 2,
+      "reps": "8-12",
+      "rir": "1-0",
+      "rest": "2-3 min",
+      "restSeconds": 150,
+      "video": "https://www.youtube.com/watch?v=EZzpfk62hDA&list=PLlvCYMcR6vcVpeIUZgkFaQWZKGF49w5Bz&index=62&pp=iAQB0gcJCa4KAYcqIYzv"
+    },
+    {
+      "id": "d5e6",
+      "name": "DB wrist flexion",
+      "warmups": 1,
+      "sets": 2,
+      "reps": "10-12",
+      "rir": "1-0",
+      "rest": "2-3 min",
+      "restSeconds": 150,
+      "video": "https://www.youtube.com/watch?v=V0qUjgoQNmk&list=PLlvCYMcR6vcVpeIUZgkFaQWZKGF49w5Bz&index=51&pp=iAQB"
+    },
+    {
+      "id": "d5e7",
+      "name": "Smith standing calf raises",
+      "warmups": 1,
+      "sets": 3,
+      "reps": "8-12",
+      "rir": "1-0",
+      "rest": "1.5-2 min",
+      "restSeconds": 90,
+      "video": "https://www.youtube.com/watch?v=p_T9O2gHwPA&list=PLlvCYMcR6vcVpeIUZgkFaQWZKGF49w5Bz&index=36&pp=iAQB"
+    }
+  ]
+};
+const SCHEDULE=[1,2,3,0,4,5,0], KEY='shadad_split_tracker_2026_v1';
+const I18N={
+ en:{home:'Home',train:'Workout',progress:'Progress',history:'History',settings:'Settings',track:'OFFLINE TRAINING TRACKER',eyebrow:'YOUR TRAINING PLAN',heroTitle:'Every set counts.',heroDescription:'The Shadad Split 2.0 plan, ready to log offline. Keep your weights, reps and progress together.',startNext:'Start next workout',resume:'Resume workout',last:'Latest sessions',noSessions:'Your completed sessions will show here.',plan:'Your 7-day training sequence',planHint:'Day numbers represent the plan order, not fixed weekdays.',day:'Day',rest:'REST',restDay:'Rest day',next:'NEXT UP',yourStats:'Your progress so far',sessions:'Sessions',setsLogged:'Sets logged',volume:'Volume (kg)',thisMonth:'Last 30 days',start:'Start',chooseDay:'Choose a workout',session:'Workout session',target:'Target',warmups:'Warm-up',workSets:'working sets',reps:'reps',rir:'RIR',restTime:'Rest',video:'Exercise video (opens online)',previous:'Last time',noPrevious:'No previous result',usePrevious:'Copy last weights/reps',warm:'Warm',set:'Set',weight:'kg',done:'Done',addSet:'+ Extra set',removeSet:'Remove extra',notes:'Exercise notes',sessionNotes:'Session notes',sessionProgress:'working sets complete',startTimer:'Rest timer',stopTimer:'Stop',resetTimer:'Reset',finish:'Finish workout',cardio:'Post-workout cardio',cardioTarget:'Plan: treadmill 20 min · speed 4 · incline 10',cardioDone:'I completed cardio',duration:'Minutes',speed:'Speed',incline:'Incline',steps:'Daily steps (optional)',review:'Session review',sessionDate:'Started',edit:'Continue editing',completed:'Completed',noData:'No data yet',logToSee:'Complete workouts to unlock trends.',chooseExercise:'Select exercise',metric:'Metric',bestWeight:'Top weight (kg)',bestVolume:'Session volume (kg)',bestReps:'Highest reps',allTimeBest:'All-time best',recentTrend:'Recent sessions',total:'Total',reopen:'Edit session',delete:'Delete',exercise:'Exercise',type:'Type',work:'Work',editHint:'Changes auto-save as you type; internet is not needed.',backup:'Back up your training data',backupDesc:'Everything is stored on this device and browser. Export backups regularly; deleting browser data can erase logs.',exportJSON:'Export full backup (.json)',exportCSV:'Export sets (.csv)',importJSON:'Import backup (.json)',dataControl:'Data controls',wipe:'Delete ALL local data',about:'About this tracker',aboutText:'Built from your Shadad Split 2.0 PDF: 5 training days plus 2 rest days, original exercise order, warm-up/working sets, rep ranges, RIR and rest targets. Exercise videos open YouTube and require internet.',offline:'Works offline',saved:'Saved locally',noBackup:'No data to export yet',good:'Workout saved!',needsReps:'Enter reps before marking a set done.',confirmFinish:'Finish this workout with no completed sets?',confirmNew:'An unfinished workout exists. Discard it and start another?',confirmEdit:'An unfinished workout exists. Replace it with this completed session for editing?',confirmDelete:'Delete this saved session?',confirmWipe:'Delete all sessions and settings on this device? This cannot be undone.',confirmImport:'Import backup and replace current local data? Export a backup first if needed.',imported:'Backup imported.',invalidFile:'This is not a valid tracker backup.',timerComplete:'Rest is over!',completeRest:'Mark rest day complete',restComplete:'Rest day recorded.',date:'Date',elapsed:'Duration',minutes:'min',exported:'Backup downloaded.',repsRange:'Rep target',summary:'Summary',maxSets:'Working sets',previousRecord:'Previous',copy:'Use previous',workoutComplete:'Workout complete',starting:'Start workout',disclaimer:'Rep counts and workout volume are based on logged completed sets; bodyweight work with no weight does not add to volume.',today:'Selected workout',last30:'In 30 days',goal:'Your plan',best:'Best',back:'Back',more:'More',count:'sets',setNo:'Set',emptyChart:'Log this exercise in multiple sessions to see a trend.',all:'All time',sec:'sec',cardioStats:'Cardio sessions',save:'Saved',goToHistory:'View history',noWorkout:'Start a workout to begin recording.',sameDay:'Keep building from your last session.',doneProgress:'done',on:'on'},
+ ar:{home:'الرئيسية',train:'التمرين',progress:'التطور',history:'السجل',settings:'الإعدادات',track:'تسجيل التمرين بدون إنترنت',eyebrow:'برنامج تمرينك',heroTitle:'سجّل كل مجموعة.',heroDescription:'برنامج Shadad Split 2.0 على موبايلك، سجّل الأوزان والتكرارات وتابع تطورك من غير نت.',startNext:'ابدأ التمرين الجاي',resume:'كمل التمرين',last:'آخر التمرينات',noSessions:'التمارين اللي تخلصها هتظهر هنا.',plan:'ترتيب الـ 7 أيام',planHint:'الترتيب حسب البرنامج، مش لازم أيام أسبوع ثابتة.',day:'يوم',rest:'راحة',restDay:'يوم راحة',next:'التمرين الجاي',yourStats:'تطورك لحد دلوقتي',sessions:'حصص تمرين',setsLogged:'مجموعات مسجلة',volume:'حجم التمرين (كجم)',thisMonth:'آخر 30 يوم',start:'ابدأ',chooseDay:'اختار يوم التمرين',session:'حصة تمرين',target:'الهدف',warmups:'تسخين',workSets:'مجموعات أساسية',reps:'تكرارات',rir:'RIR',restTime:'راحة',video:'فيديو التمرين (يحتاج إنترنت)',previous:'آخر مرة',noPrevious:'مفيش تسجيل قبل كده',usePrevious:'انسخ أوزان وتكرارات آخر مرة',warm:'تسخين',set:'مجموعة',weight:'كجم',done:'تم',addSet:'+ مجموعة إضافية',removeSet:'احذف الزيادة',notes:'ملاحظات التمرين',sessionNotes:'ملاحظات اليوم',sessionProgress:'مجموعات أساسية خلصت',startTimer:'مؤقت الراحة',stopTimer:'إيقاف',resetTimer:'إعادة',finish:'إنهاء التمرين',cardio:'كارديو بعد التمرين',cardioTarget:'البرنامج: مشاية 20 دقيقة · سرعة 4 · ميل 10',cardioDone:'خلصت الكارديو',duration:'دقائق',speed:'سرعة',incline:'ميل',steps:'خطوات اليوم (اختياري)',review:'مراجعة التمرين',sessionDate:'بدأ',edit:'كمل التعديل',completed:'خلص',noData:'لسه مفيش بيانات',logToSee:'سجّل تمارين عشان تشوف الرسوم.',chooseExercise:'اختار تمرين',metric:'المقياس',bestWeight:'أعلى وزن (كجم)',bestVolume:'حجم الحصة (كجم)',bestReps:'أعلى تكرارات',allTimeBest:'أفضل نتيجة',recentTrend:'آخر الحصص',total:'الإجمالي',reopen:'تعديل التمرين',delete:'حذف',exercise:'التمرين',type:'النوع',work:'أساسي',editHint:'كل تعديل بيتحفظ تلقائيًا على الجهاز من غير نت.',backup:'نسخة احتياطية لبياناتك',backupDesc:'البيانات محفوظة في المتصفح على الجهاز ده. نزّل نسخة احتياطية باستمرار؛ حذف بيانات المتصفح ممكن يمسح السجل.',exportJSON:'تنزيل نسخة كاملة (.json)',exportCSV:'تنزيل المجموعات (.csv)',importJSON:'استيراد نسخة (.json)',dataControl:'التحكم في البيانات',wipe:'حذف كل بيانات الجهاز',about:'عن التطبيق',aboutText:'مبني على ملف Shadad Split 2.0: خمس أيام تمرين ويومين راحة، بنفس ترتيب التمارين والمجموعات والتكرارات وRIR والراحة. فيديوهات يوتيوب محتاجة نت.',offline:'بيشتغل من غير نت',saved:'محفوظ على الجهاز',noBackup:'مفيش بيانات لسه',good:'تم حفظ التمرين!',needsReps:'اكتب التكرارات الأول عشان تعلم المجموعة تم.',confirmFinish:'هتنهي التمرين من غير ما تسجل مجموعات؟',confirmNew:'في تمرين لسه مفتوح. تحذفه وتبدأ تمرين جديد؟',confirmEdit:'في تمرين لسه مفتوح. تستبدله بالتمرين اللي هتعدله؟',confirmDelete:'تمسح التمرين ده من السجل؟',confirmWipe:'هتمسح كل البيانات والإعدادات من الجهاز ده. مش هتقدر ترجعها.',confirmImport:'تستورد النسخة وتستبدل البيانات الموجودة؟ الأفضل تعمل نسخة احتياطية الأول.',imported:'تم استيراد النسخة.',invalidFile:'ملف النسخة الاحتياطية غير صالح.',timerComplete:'الراحة خلصت!',completeRest:'سجّل يوم الراحة',restComplete:'تم تسجيل الراحة.',date:'التاريخ',elapsed:'المدة',minutes:'دقيقة',exported:'تم تنزيل النسخة.',repsRange:'التكرارات المطلوبة',summary:'ملخص',maxSets:'مجموعات أساسية',previousRecord:'السابق',copy:'انسخ السابق',workoutComplete:'التمرين خلص',starting:'ابدأ التمرين',disclaimer:'الحسابات مبنية على المجموعات اللي علمتها تم. تمارين وزن الجسم من غير وزن لا تدخل في حجم التمرين.',today:'التمرين المختار',last30:'خلال 30 يوم',goal:'برنامجك',best:'الأفضل',back:'رجوع',more:'المزيد',count:'مجموعة',setNo:'مجموعة',emptyChart:'سجّل التمرين في أكتر من حصة عشان يظهر الرسم.',all:'كل الوقت',sec:'ثانية',cardioStats:'حصص الكارديو',save:'محفوظ',goToHistory:'عرض السجل',noWorkout:'ابدأ تمرين عشان تسجل.',sameDay:'كمّل تطورك من آخر مرة.',doneProgress:'تم',on:'من'}
+};
+function blankState(){return {version:1,lang:'en',nextSlot:0,draft:null,sessions:[],restDays:[]}}
+let state;try{state=JSON.parse(localStorage.getItem(KEY))||blankState()}catch{state=blankState()};if(!state||!Array.isArray(state.sessions)||!Number.isInteger(state.version))state=blankState();if(!Array.isArray(state.restDays))state.restDays=[];
+let route='home',selectedExercise=Object.values(PLAN).flat()[0].name, metric='weight', timerId=null,timerEnd=0,timerRemaining=0,toastTimeout=null;
+function t(k){return (I18N[state.lang]||I18N.en)[k]||I18N.en[k]||k}function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}function n(v){let x=Number(v);return Number.isFinite(x)?x:0}function displayNum(v){return Number.isFinite(v)?v.toLocaleString(state.lang==='ar'?'ar-EG':'en-US',{maximumFractionDigits:1}):'0'}function dateFmt(s){try{return new Date(s).toLocaleDateString(state.lang==='ar'?'ar-EG':'en-GB',{day:'numeric',month:'short',year:'numeric'})}catch{return s}}function timeFmt(s){try{return new Date(s).toLocaleTimeString(state.lang==='ar'?'ar-EG':'en-GB',{hour:'2-digit',minute:'2-digit'})}catch{return ''}}function save(){try{localStorage.setItem(KEY,JSON.stringify(state));return true}catch{toast('Storage unavailable. Export your work.');return false}}function toast(msg){let el=document.getElementById('toast');el.innerHTML=`<div class="notification">${esc(msg)}</div>`;clearTimeout(toastTimeout);toastTimeout=setTimeout(()=>el.innerHTML='',2500)}function allExercises(){return Object.values(PLAN).flat()}function planned(day){return PLAN[day]||[]}function uniqueExercises(){return [...new Set(allExercises().map(x=>x.name))].sort((a,b)=>a.localeCompare(b))}function lookup(day,eid){return planned(day).find(e=>e.id===eid)}function doneSets(session){return Object.values(session.exercises||{}).flatMap(x=>x.work||[]).filter(s=>s.done&&n(s.reps)>0)}function totalVolume(session){return doneSets(session).reduce((sum,s)=>sum+n(s.weight)*n(s.reps),0)}function totalDone(session){return doneSets(session).length}function sessionPlanTotal(day){return planned(day).reduce((a,e)=>a+e.sets,0)}function sessionCount(){return state.sessions.filter(x=>x.completedAt).length}function routeTo(view){route=view;render();window.scrollTo({top:0,behavior:'instant'})}function navigation(){const items=[['home','⌂'],['train','▤'],['progress','↗'],['history','◷'],['settings','⚙']];document.getElementById('tabs').innerHTML=items.map(([key,ico])=>`<button class="tab ${route===key?'active':''}" data-route="${key}"><span class="tab-icon">${ico}</span><span>${t(key)}</span></button>`).join('')}
+function render(){document.documentElement.lang=state.lang;document.documentElement.dir=state.lang==='ar'?'rtl':'ltr';document.getElementById('langBtn').textContent=state.lang==='en'?'العربية':'English';document.getElementById('brandSub').textContent=t('track');navigation();const main=document.getElementById('app');main.innerHTML={home:homeView,train:trainView,progress:progressView,history:historyView,settings:settingsView}[route]();updateTimerDisplay()}
+function topStats(){const volume=state.sessions.reduce((sum,s)=>sum+totalVolume(s),0);const done=state.sessions.reduce((sum,s)=>sum+totalDone(s),0);let thirty=state.sessions.filter(s=>new Date(s.completedAt||s.startedAt)>Date.now()-30*86400000).length;return `<div class="stats"><div class="stat"><b>${sessionCount()}</b><span>${t('sessions')}</span></div><div class="stat"><b>${done}</b><span>${t('setsLogged')}</span></div><div class="stat"><b>${displayNum(volume)}</b><span>${t('volume')}</span></div><div class="stat"><b>${thirty}</b><span>${t('thisMonth')}</span></div></div>`}
+function homeView(){let next=SCHEDULE[state.nextSlot%7];let items=[...state.sessions].sort((a,b)=>(b.completedAt||'').localeCompare(a.completedAt||'')).slice(0,4);return `<section class="hero"><div class="eyebrow">${t('eyebrow')}</div><h1>${t('heroTitle')}</h1><p>${t('heroDescription')}</p><div class="row"><button class="btn primary" data-action="${state.draft?'resume':next===0?'rest':'start-next'}">${state.draft?t('resume'):next===0?t('completeRest'):t('startNext')} →</button><span class="pill">${t('next')}: ${next===0?t('restDay'):t('day')+' '+next}</span></div></section>${topStats()}<section class="section"><div class="sect-head"><h2>${t('plan')}</h2></div><p class="hint" style="margin:-4px 0 12px">${t('planHint')}</p><div class="days">${SCHEDULE.map((day,i)=>`<button class="day-card ${i===state.nextSlot?'active':''} ${!day?'rest':''}" data-action="${day?'select-day':'rest-slot'}" data-day="${day}" data-slot="${i}"><div class="day-num">${t('day')} ${i+1}</div><div class="day-main">${day||'☾'}</div><div class="day-label">${day?`${planned(day).length} ${t('exercise')}`:t('rest')}</div></button>`).join('')}</div></section><section class="section"><div class="sect-head"><h2>${t('last')}</h2><button class="btn small ghost" data-route="history">${t('goToHistory')}</button></div>${items.length?`<div class="card">${items.map(s=>`<div class="latest"><div><div class="latest-title">${t('day')} ${s.day} · ${dateFmt(s.completedAt)}</div><div class="subtle">${totalDone(s)} ${t('count')} · ${displayNum(totalVolume(s))} kg</div></div><span class="pill green">✓ ${t('completed')}</span></div>`).join('')}</div>`:`<div class="empty">${t('noSessions')}</div>`}</section><div class="section note">${t('offline')} · ${t('saved')} · ${t('editHint')}</div>`}
+function newDraft(day){return {id:'s'+Date.now()+'-'+Math.random().toString(36).slice(2,7),day,startedAt:new Date().toISOString(),completedAt:null,exercises:Object.fromEntries(planned(day).map(e=>[e.id,{warm:Array.from({length:e.warmups},()=>({weight:'',reps:'',rir:'',done:false})),work:Array.from({length:e.sets},()=>({weight:'',reps:'',rir:'',done:false})),notes:''}])),notes:'',cardio:{done:false,duration:'20',speed:'4',incline:'10'},steps:''}}
+function startDay(day){if(state.draft&&state.draft.day!==day&&!confirm(t('confirmNew')))return;if(!state.draft||state.draft.day!==day)state.draft=newDraft(day);save();routeTo('train')}
+function restSlot(slot){if(state.draft&&!confirm(t('confirmNew')))return;if(state.draft)state.draft=null;state.restDays.push(new Date().toISOString());state.nextSlot=(slot+1)%7;save();toast(t('restComplete'));routeTo('home')}
+function getLast(e,daySpecific=true){let arr=[...state.sessions].filter(s=>s.day===Number(e.id[1])&&s.exercises&&s.exercises[e.id]);if(!arr.length){arr=[...state.sessions].filter(s=>Object.keys(s.exercises||{}).some(eid=>lookup(s.day,eid)?.name===e.name))}arr.sort((a,b)=>(b.completedAt||'').localeCompare(a.completedAt||''));if(!arr.length)return null;let s=arr[0], matched=Object.keys(s.exercises).find(id=>lookup(s.day,id)?.name===e.name);return {session:s,work:s.exercises[matched].work||[]}}
+function prevString(e){let prev=getLast(e);if(!prev)return t('noPrevious');const lines=prev.work.filter(s=>s.done).map(s=>`${s.weight===''?'BW':s.weight+' kg'} × ${s.reps}`).join(' · ');return `${dateFmt(prev.session.completedAt)} — ${lines||t('noPrevious')}`}
+function setRows(e,kind,sets){return sets.map((s,i)=>`<tr class="${s.done?'is-done':''}"><td class="set-kind"><b>${kind==='warm'?t('warm'):t('set')} ${i+1}</b>${kind==='warm'?'<small>W/U</small>':''}</td>${['weight','reps','rir'].map(f=>`<td><input type="number" inputmode="decimal" min="0" ${f==='rir'?'max="10" step="1"':f==='reps'?'step="1"':'step="0.5"'} aria-label="${esc(e.name)} ${kind} ${i+1} ${f}" placeholder="${f==='rir'&&kind==='work'?e.rir:'—'}" data-field="set-field" data-eid="${e.id}" data-kind="${kind}" data-i="${i}" data-value="${f}" value="${esc(s[f])}"></td>`).join('')}<td><button class="markdone" aria-label="Mark set done" data-action="toggle-set" data-eid="${e.id}" data-kind="${kind}" data-i="${i}">${s.done?'✓':'○'}</button></td></tr>`).join('')}
+function exerciseCard(e,index){const x=state.draft.exercises[e.id],pr=getLast(e);return `<article class="exercise"><div class="ex-top"><div><div class="ex-index">${t('exercise')} ${index+1} / ${planned(state.draft.day).length}</div><div class="ex-name">${esc(e.name)}</div><div class="targets"><span class="target">${e.sets} ${t('workSets')}</span><span class="target">${e.reps} ${t('reps')}</span><span class="target">RIR ${e.rir}</span><span class="target">${e.rest}</span></div></div><div class="ex-actions">${e.video?`<a class="ico-btn" href="${esc(e.video)}" target="_blank" rel="noopener noreferrer" title="${t('video')}" aria-label="${t('video')}">▶</a>`:''}<button class="ico-btn" data-action="ex-timer" data-seconds="${e.restSeconds}" title="${t('startTimer')}">◷</button></div></div><table class="set-table"><thead><tr><th style="width:53px"></th><th>${t('weight')}</th><th>${t('reps')}</th><th>RIR</th><th>✓</th></tr></thead><tbody>${setRows(e,'warm',x.warm)}${setRows(e,'work',x.work)}</tbody></table><div class="prev"><b>${t('previous')}:</b> ${esc(prevString(e))}</div><div class="ex-bottom"><div class="row">${pr?`<button class="btn ghost small" data-action="prefill" data-eid="${e.id}">↶ ${t('usePrevious')}</button>`:''}<button class="btn ghost small" data-action="add-set" data-eid="${e.id}">${t('addSet')}</button>${x.work.length>e.sets?`<button class="btn ghost small" data-action="remove-set" data-eid="${e.id}">−</button>`:''}</div><span class="smalltext muted">${t('restTime')}: ${esc(e.rest)}</span></div><details class="ex-notes" ${x.notes?'open':''}><summary>${t('notes')}${x.notes?' •':''}</summary><textarea data-field="exercise-notes" data-eid="${e.id}" placeholder="${t('notes')}">${esc(x.notes)}</textarea></details></article>`}
+function trainView(){if(!state.draft){return `<div class="sect-head"><h2>${t('chooseDay')}</h2></div><div class="grid2">${[1,2,3,4,5].map(day=>`<div class="card"><div class="eyebrow">${t('goal')}</div><h2 style="margin:6px 0">${t('day')} ${day}</h2><p class="muted smalltext">${planned(day).length} ${t('exercise')} · ${sessionPlanTotal(day)} ${t('count')}</p><button class="btn primary block" data-action="start-day" data-day="${day}">${t('start')}</button></div>`).join('')}</div><p class="note section">${t('editHint')}</p>`}let s=state.draft;let total=sessionPlanTotal(s.day),done=totalDone(s);return `<div class="workout-head"><div><div class="eyebrow">${t('session')} · ${dateFmt(s.startedAt)}</div><h1 class="workout-title">${t('day')} ${s.day}</h1><div class="muted smalltext">${planned(s.day).length} ${t('exercise')} · ${total} ${t('workSets')}</div></div><button class="btn small ghost" data-route="home">${t('back')}</button></div><div class="progress-track"><div id="workoutBar" class="progress-fill" style="width:${Math.min(100,done/total*100)}%"></div></div><p id="session-progress" class="smalltext muted" style="margin:7px 0 17px">${done} / ${total} ${t('sessionProgress')}</p>${planned(s.day).map(exerciseCard).join('')}<div class="card section"><div class="sect-head"><h2>${t('cardio')}</h2></div><p class="hint">${t('cardioTarget')}</p><label class="row" style="margin:12px 0 15px"><input type="checkbox" data-field="cardio-done" ${s.cardio?.done?'checked':''} style="min-height:21px;width:21px;accent-color:var(--orange)"> <b>${t('cardioDone')}</b></label><div class="fields">${[['duration','duration'],['speed','speed'],['incline','incline']].map(([key,label])=>`<div class="field"><label>${t(label)}</label><input type="number" min="0" inputmode="decimal" data-field="cardio-field" data-key="${key}" value="${esc(s.cardio?.[key]??'')}"></div>`).join('')}</div><div class="field hspace"><label>${t('steps')}</label><input type="number" min="0" inputmode="numeric" data-field="steps" value="${esc(s.steps)}" placeholder="0"></div><div class="field hspace"><label>${t('sessionNotes')}</label><textarea data-field="session-notes" placeholder="${t('notes')}">${esc(s.notes)}</textarea></div></div><div class="session-footer"><div class="row spread"><div class="timer"><span id="clock" class="timer-clock">00:00</span><button class="btn small ghost" data-action="timer-toggle" id="timerToggle">${t('startTimer')}</button><button class="btn small ghost" data-action="timer-reset">↺</button></div><button class="btn primary" data-action="finish">✓ ${t('finish')}</button></div></div>`}
+function sessionRows(s){return Object.entries(s.exercises||{}).flatMap(([eid,logs])=>[...(logs.warm||[]).map((x,i)=>({eid,index:i,type:'Warmup',...x})),...(logs.work||[]).map((x,i)=>({eid,index:i,type:'Working',...x}))]).filter(x=>x.done)}
+function metricSeries(name,which=metric){return state.sessions.map(s=>{let sets=[];for(let [id,log] of Object.entries(s.exercises||{}))if(lookup(s.day,id)?.name===name)sets.push(...(log.work||[]).filter(x=>x.done&&n(x.reps)>0));if(!sets.length)return null;let val=which==='volume'?sets.reduce((sum,x)=>sum+n(x.weight)*n(x.reps),0):which==='reps'?Math.max(...sets.map(x=>n(x.reps))):Math.max(...sets.map(x=>n(x.weight)));return {date:s.completedAt||s.startedAt,val}}).filter(Boolean).sort((a,b)=>a.date.localeCompare(b.date))}
+function chartSVG(series){if(!series.length)return `<div class="empty" style="padding:30px 10px">${t('emptyChart')}</div>`;let arr=series.slice(-10);const W=700,H=275,L=50,R=24,T=20,B=44;let min=Math.min(...arr.map(x=>x.val)),max=Math.max(...arr.map(x=>x.val));if(min===max){min=Math.max(0,min*0.75-1);max=max*1.15+1}let padded=(max-min)*.1;min=Math.max(0,min-padded);max+=padded;const x=i=>L+(W-L-R)*(arr.length===1?.5:i/(arr.length-1));const y=v=>T+(max-v)/(max-min)*(H-T-B);const points=arr.map((a,i)=>`${x(i)},${y(a.val)}`).join(' ');const ticks=[0,1,2,3].map(i=>{let v=min+(max-min)*i;let yy=y(v);return `<line x1="${L}" x2="${W-R}" y1="${yy}" y2="${yy}" stroke="#34363e" stroke-dasharray="4 5"/><text x="${L-6}" y="${yy+4}" text-anchor="end" class="chartlabel">${displayNum(v)}</text>`}).join('');return `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Exercise progress chart">${ticks}<polyline class="chartline" points="${points}"/>${arr.map((a,i)=>`<circle class="chartpoint" cx="${x(i)}" cy="${y(a.val)}" r="5"/><text class="chartlabel" text-anchor="middle" x="${x(i)}" y="${H-12}">${dateFmt(a.date).split(' ').slice(0,2).join(' ')}</text>`).join('')}</svg>`}
+function progressView(){const opts=uniqueExercises();if(!opts.includes(selectedExercise))selectedExercise=opts[0];let series=metricSeries(selectedExercise),best=series.length?Math.max(...series.map(x=>x.val)):null;let cardio=state.sessions.filter(s=>s.cardio?.done).length;return `<div class="sect-head"><h2>${t('progress')}</h2><span class="pill">${t('all')}</span></div>${topStats()}<section class="section chartbox"><div class="grid2"><div class="field"><label>${t('chooseExercise')}</label><select id="exSelect" class="ch-select">${opts.map(v=>`<option value="${esc(v)}" ${v===selectedExercise?'selected':''}>${esc(v)}</option>`).join('')}</select></div><div class="field"><label>${t('metric')}</label><select id="metricSelect"><option value="weight" ${metric==='weight'?'selected':''}>${t('bestWeight')}</option><option value="volume" ${metric==='volume'?'selected':''}>${t('bestVolume')}</option><option value="reps" ${metric==='reps'?'selected':''}>${t('bestReps')}</option></select></div></div><div class="row spread hspace"><div><div class="hint">${t('allTimeBest')}</div><div class="trend-value">${best===null?'—':displayNum(best)} <span style="font-size:13px;color:var(--muted)">${metric==='reps'?t('reps'):'kg'}</span></div></div><div class="hint">${series.length} ${t('sessions')}</div></div>${chartSVG(series)}</section><section class="section"><div class="sect-head"><h2>${t('summary')}</h2></div><div class="grid2"><div class="stat"><b>${cardio}</b><span>${t('cardioStats')}</span></div><div class="stat"><b>${displayNum(state.sessions.reduce((a,s)=>a+totalVolume(s),0))}</b><span>${t('volume')}</span></div></div><p class="hint hspace">${t('disclaimer')}</p></section>`}
+function historyView(){let arr=[...state.sessions].sort((a,b)=>(b.completedAt||'').localeCompare(a.completedAt||''));return `<div class="sect-head"><h2>${t('history')}</h2><span class="pill">${arr.length} ${t('sessions')}</span></div>${!arr.length?`<div class="empty"><div class="symbol">▤</div>${t('noSessions')}</div>`:arr.map(s=>{let rows=sessionRows(s),vol=totalVolume(s);return `<article class="card"><div class="row spread"><div><div class="eyebrow">${dateFmt(s.completedAt||s.startedAt)} · ${timeFmt(s.startedAt)}</div><h2 style="margin:5px 0 3px">${t('day')} ${s.day}</h2><div class="muted smalltext">${rows.filter(x=>x.type==='Working').length} ${t('count')} · ${displayNum(vol)} kg · ${s.cardio?.done?'✓ '+t('cardio'):''}</div></div><div class="row"><button class="btn small ghost" data-action="reopen" data-id="${esc(s.id)}">${t('reopen')}</button><button class="btn small danger" data-action="delete-session" data-id="${esc(s.id)}">${t('delete')}</button></div></div><details class="history-details"><summary>${t('more')} · ${rows.length} ${t('count')}</summary><div style="overflow:auto"><table><thead><tr><th>${t('exercise')}</th><th>${t('type')}</th><th>${t('weight')}</th><th>${t('reps')}</th><th>RIR</th></tr></thead><tbody>${rows.map(r=>`<tr><td>${esc(lookup(s.day,r.eid)?.name||r.eid)}</td><td>${r.type==='Working'?t('work'):t('warm')}</td><td>${esc(r.weight||'—')}</td><td>${esc(r.reps)}</td><td>${esc(r.rir||'—')}</td></tr>`).join('')}</tbody></table></div>${s.notes?`<p class="hint">${esc(s.notes)}</p>`:''}${s.steps?`<p class="hint">${t('steps')}: ${esc(s.steps)}</p>`:''}</details></article>`}).join('')}`}
+function settingsView(){return `<div class="sect-head"><h2>${t('settings')}</h2></div><div class="card"><h3 style="margin:0 0 8px">${t('backup')}</h3><p class="muted">${t('backupDesc')}</p><div class="row hspace"><button class="btn primary" data-action="export-json">↓ ${t('exportJSON')}</button><button class="btn ghost" data-action="export-csv">↓ ${t('exportCSV')}</button><button class="btn ghost" data-action="import-json">↑ ${t('importJSON')}</button></div></div><div class="card"><h3 style="margin:0 0 10px">${t('about')}</h3><p class="muted">${t('aboutText')}</p><div class="pill green">✓ ${t('offline')}</div></div><div class="card"><h3 style="margin:0 0 12px">${t('dataControl')}</h3><button class="btn danger" data-action="wipe">${t('wipe')}</button></div>`}
+function refreshProgress(){if(!state.draft)return;const done=totalDone(state.draft),total=sessionPlanTotal(state.draft.day);let p=document.getElementById('session-progress'),bar=document.getElementById('workoutBar');if(p)p.textContent=`${done} / ${total} ${t('sessionProgress')}`;if(bar)bar.style.width=Math.min(100,done/total*100)+'%'}
+function toggleSet(b){let x=state.draft?.exercises?.[b.dataset.eid]?.[b.dataset.kind]?.[Number(b.dataset.i)];if(!x)return;if(!x.done&&!n(x.reps)){toast(t('needsReps'));return}x.done=!x.done;save();let tr=b.closest('tr');tr?.classList.toggle('is-done',x.done);b.textContent=x.done?'✓':'○';refreshProgress()}
+function copyPrevious(eid){let e=lookup(state.draft.day,eid),prev=getLast(e);if(!prev)return;const rows=state.draft.exercises[eid].work;prev.work.forEach((p,i)=>{if(!rows[i])return;for(let f of ['weight','reps','rir'])if(rows[i][f]==='')rows[i][f]=p[f]??''});save();render();toast(t('copy'))}
+function finishWorkout(){let s=state.draft;if(!s)return;if(totalDone(s)===0&&!confirm(t('confirmFinish')))return;s.completedAt=new Date().toISOString();state.sessions.push(s);let i=SCHEDULE.indexOf(s.day);state.nextSlot=(i+1)%7;state.draft=null;save();stopTimer();toast(t('good'));routeTo('history')}
+function startTimer(seconds){timerRemaining=Math.max(1,seconds);timerEnd=Date.now()+timerRemaining*1000;if(timerId)clearInterval(timerId);timerId=setInterval(tickTimer,300);updateTimerDisplay()}
+function tickTimer(){timerRemaining=Math.max(0,Math.ceil((timerEnd-Date.now())/1000));if(timerRemaining<=0){clearInterval(timerId);timerId=null;try{navigator.vibrate?.([300,180,300])}catch{}toast(t('timerComplete'))}updateTimerDisplay()}
+function stopTimer(){if(timerId){timerRemaining=Math.max(0,Math.ceil((timerEnd-Date.now())/1000));clearInterval(timerId);timerId=null}updateTimerDisplay()}
+function updateTimerDisplay(){let c=document.getElementById('clock'),b=document.getElementById('timerToggle');if(c){c.textContent=String(Math.floor(timerRemaining/60)).padStart(2,'0')+':'+String(timerRemaining%60).padStart(2,'0');c.classList.toggle('ready',timerRemaining===0)}if(b)b.textContent=timerId?t('stopTimer'):t('startTimer')}
+function csvQuote(a){let s=String(a??'');return '"'+s.replace(/"/g,'""')+'"'}function download(name,data,mime){let blob=new Blob([data],{type:mime}),url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1500)}
+function exportBackup(){download('shadad-backup-'+new Date().toISOString().slice(0,10)+'.json',JSON.stringify({format:'shadad-split-tracker',exportedAt:new Date().toISOString(),data:state},null,2),'application/json');toast(t('exported'))}
+function exportCsv(){const head=['Session ID','Date','Day','Exercise','Type','Set','Weight kg','Reps','RIR','Done','Session Notes','Exercise Notes'];let data=[head];for(let s of state.sessions.concat(state.draft?[state.draft]:[])){for(let [eid,x] of Object.entries(s.exercises||{})){for(let kind of ['warm','work'])for(let [idx,log] of (x[kind]||[]).entries())if(log.done||log.weight!==''||log.reps!=='')data.push([s.id,s.completedAt||s.startedAt,s.day,lookup(s.day,eid)?.name||eid,kind,idx+1,log.weight,log.reps,log.rir,log.done,s.notes,x.notes])}}download('shadad-sets-'+new Date().toISOString().slice(0,10)+'.csv','\ufeff'+data.map(row=>row.map(csvQuote).join(',')).join('\r\n'),'text/csv;charset=utf-8');toast(t('exported'))}
+function validateImport(data){let s=data?.format==='shadad-split-tracker'?data.data:data;return s&&s.version===1&&Array.isArray(s.sessions)&&Number.isInteger(s.nextSlot)&&s.nextSlot>=0&&s.nextSlot<=6&&s.sessions.every(x=>Number.isInteger(x.day)&&x.day>=1&&x.day<=5&&x.exercises&&typeof x.exercises==='object'&&typeof x.id==='string')&&(!s.draft||(s.draft.day>=1&&s.draft.day<=5&&s.draft.exercises))?s:null}
+async function importBackup(file){try{let parsed=JSON.parse(await file.text()),incoming=validateImport(parsed);if(!incoming){toast(t('invalidFile'));return}if(!confirm(t('confirmImport')))return;state={...blankState(),...incoming,lang:state.lang};save();stopTimer();routeTo('home');toast(t('imported'))}catch{toast(t('invalidFile'))}}
+function clickAction(e){let btn=e.target.closest('[data-action]');if(!btn)return;let a=btn.dataset.action;switch(a){case 'start-next':startDay(SCHEDULE[state.nextSlot]||1);break;case 'resume':routeTo('train');break;case 'start-day':case 'select-day':startDay(Number(btn.dataset.day));break;case 'rest':case 'rest-slot':restSlot(Number(btn.dataset.slot??state.nextSlot));break;case 'prefill':copyPrevious(btn.dataset.eid);break;case 'toggle-set':toggleSet(btn);break;case 'add-set':state.draft.exercises[btn.dataset.eid].work.push({weight:'',reps:'',rir:'',done:false});save();render();break;case 'remove-set':{let e1=lookup(state.draft.day,btn.dataset.eid),arr=state.draft.exercises[btn.dataset.eid].work;if(arr.length>e1.sets)arr.pop();save();render();break}case 'finish':finishWorkout();break;case 'ex-timer':startTimer(Number(btn.dataset.seconds));break;case 'timer-toggle':if(timerId)stopTimer();else startTimer(timerRemaining||150);break;case 'timer-reset':stopTimer();timerRemaining=0;updateTimerDisplay();break;case 'delete-session':if(confirm(t('confirmDelete'))){state.sessions=state.sessions.filter(x=>x.id!==btn.dataset.id);save();render()}break;case 'reopen':{let s=state.sessions.find(x=>x.id===btn.dataset.id);if(!s)return;if(state.draft&&!confirm(t('confirmEdit')))return;state.sessions=state.sessions.filter(x=>x.id!==s.id);state.draft=structuredClone(s);state.draft.completedAt=null;save();routeTo('train');break}case 'export-json':exportBackup();break;case 'export-csv':exportCsv();break;case 'import-json':document.getElementById('importFile').click();break;case 'wipe':if(confirm(t('confirmWipe'))){state=blankState();save();stopTimer();routeTo('home')}break;}}
+document.addEventListener('click',e=>{let nav=e.target.closest('[data-route]');if(nav){routeTo(nav.dataset.route);return}clickAction(e)});
+document.addEventListener('input',e=>{let target=e.target;let f=target.dataset.field;if(!state.draft||!f)return;switch(f){case 'set-field':{let set=state.draft.exercises[target.dataset.eid][target.dataset.kind][Number(target.dataset.i)];let val=target.value;set[target.dataset.value]=val;break}case 'exercise-notes':state.draft.exercises[target.dataset.eid].notes=target.value;break;case 'session-notes':state.draft.notes=target.value;break;case 'steps':state.draft.steps=target.value;break;case 'cardio-field':state.draft.cardio[target.dataset.key]=target.value;break;}save()});
+document.addEventListener('change',e=>{if(e.target.id==='exSelect'){selectedExercise=e.target.value;render()}else if(e.target.id==='metricSelect'){metric=e.target.value;render()}else if(e.target.dataset.field==='cardio-done'){state.draft.cardio.done=e.target.checked;save()}});
+document.getElementById('importFile').addEventListener('change',async e=>{if(e.target.files[0])await importBackup(e.target.files[0]);e.target.value=''});
+document.getElementById('langBtn').addEventListener('click',()=>{state.lang=state.lang==='en'?'ar':'en';save();render()});document.getElementById('brandHome').addEventListener('click',()=>routeTo('home'));render();
+</script>
+<script>if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('./service-worker.js').catch(()=>{}));}</script>
+</body></html>
